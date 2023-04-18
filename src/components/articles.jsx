@@ -13,7 +13,7 @@ const Articles = ({ articles, loading }) => {
            {articles.map((article) => {
             return <li className='articles' key={article.article_id}>
                 <h2>{article.title} </h2>
-                <img src={article.article_img_url} alt={''} className={'responsiveImg'}></img>
+                <img src={article.article_img_url} alt={`${article.topic}`} className={'responsiveImg'}></img>
                 <p>Written by {article.author}</p>
                 <p>Topic: {article.topic}</p>
                 <p>Votes: {article.votes}</p>

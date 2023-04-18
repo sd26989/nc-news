@@ -10,3 +10,10 @@ export const fetchArticles = () => {
       return response.data.articles;
     });
 }
+
+export const fetchArticle = (article_id) => {
+    return newsAPI.get(`/articles/${article_id}`)
+    .then((response) => {
+      return response.data.article;
+    });
+}
