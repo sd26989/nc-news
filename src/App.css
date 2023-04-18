@@ -1,5 +1,19 @@
 .App {
   text-align: center;
+  background-color: #788475;
+}
+
+body {
+  color: #28112B; font-family: 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 24px; margin: 0 0 24px; text-align: justify; text-justify: inter-word;
+  border: 5px solid #28112B;
+  background-color: #788475;
+}
+
+@media only screen and (min-width: 600px) {
+  .App {
+    grid-template-columns: 25% 75%;
+    grid-template-rows: min-content auto;
+  }
 }
 
 .App-logo {
@@ -35,4 +49,26 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.responsiveImg {
+  max-width: 100%;
+  height: auto;
+}
+
+.articles {
+  display: block;
+  list-style-type: none;
+  border: 5px solid #28112B;
+  text-align: center;
+  background-color: #8DAA91;
+  margin-bottom: 10px;
+}
+
+.allArticles {
+  padding-right: 40px;
+}
+
+header {
+  color: #28112B; font-family: 'Helvetica Neue', sans-serif; font-size: 50px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;
 }
