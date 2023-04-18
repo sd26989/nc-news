@@ -1,5 +1,6 @@
 import Header from "./components/header";
 import Articles from "./components/articles";
+import Article from "./components/article";
 import {Routes, Route} from 'react-router-dom';
 import './App.css';
 import { useState, useEffect } from "react";
@@ -21,6 +22,7 @@ function App() {
       <Header />
       <Routes>
       <Route path="/" element={<Articles articles={articles} loading={loading}/>}/>
+      <Route path="/articles/:article_id" element={<Article />}/>
       </Routes>
     </div>
   );
