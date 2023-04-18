@@ -68,6 +68,32 @@ body {
   padding-right: 40px;
 }
 
+.singleArticle {
+  display: block;
+  list-style-type: none;
+  border: 5px solid #28112B;
+  text-align: center;
+  background-color: #8DAA91;
+  margin-bottom: 10px;
+  margin-right: 40px;
+  margin-left: 40px;
+}
+
 header {
   color: #28112B; font-family: 'Helvetica Neue', sans-serif; font-size: 50px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;
+}
+
+.comments {
+  display: block;
+  list-style-type: none;
+  border: 5px solid #28112B;
+  text-align: left;
+  background-color: #8DAA91;
+  margin-bottom: 10px;
+  margin-right: 40px;
+  margin-left: 40px;
+}
+
+.commentBody {
+  font-weight: bolder;
 }
