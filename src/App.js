@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import Header from "./components/header";
+import Articles from "./components/articles";
+import {Routes, Route} from 'react-router-dom';
 import './App.css';
+import { useState, useEffect } from "react";
+import { fetchArticles } from './api';
 
 function App() {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchArticles().then((data) => {
+    setArticles(data);
+    setLoading(false);
+    })
+}, [setArticles]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Routes>
+      <Route path="/" element={<Articles articles={articles} loading={loading}/>}/>
+      </Routes>
     </div>
   );
 }
