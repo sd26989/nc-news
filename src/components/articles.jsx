@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const Articles = ({ articles, loading }) => {
     
@@ -12,7 +13,7 @@ const Articles = ({ articles, loading }) => {
             <ul className='allArticles'>
            {articles.map((article) => {
             return <li className='articles' key={article.article_id}>
-                <h2>{article.title} </h2>
+                <Link to={`/articles/${article.article_id}`}><h2>{article.title}</h2></Link>
                 <img src={article.article_img_url} alt={`${article.topic}`} className={'responsiveImg'}></img>
                 <p>Written by {article.author}</p>
                 <p>Topic: {article.topic}</p>
