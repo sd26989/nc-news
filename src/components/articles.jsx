@@ -1,5 +1,9 @@
 
-const Articles = ({ articles }) => {
+const Articles = ({ articles, loading }) => {
+    
+    if (loading) {
+        return <p>Loading...</p>
+    }
 
     return (
         <main>
@@ -7,8 +11,7 @@ const Articles = ({ articles }) => {
 
             <ul className='allArticles'>
            {articles.map((article) => {
-            return <section>
-                <li className='articles' key={article.article_id}>
+            return <li className='articles' key={article.article_id}>
                 <h2>{article.title} </h2>
                 <img src={article.article_img_url} alt={''} className={'responsiveImg'}></img>
                 <p>Written by {article.author}</p>
@@ -16,7 +19,6 @@ const Articles = ({ articles }) => {
                 <p>Votes: {article.votes}</p>
                 <p>Comments:{article.comment_count}</p>
                 </li>
-                </section>
            })}
         </ul>
 

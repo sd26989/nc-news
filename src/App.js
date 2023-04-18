@@ -7,18 +7,20 @@ import { fetchArticles } from './api';
 
 function App() {
   const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchArticles().then((data) => {
     setArticles(data);
+    setLoading(false);
     })
-}, );
+}, [setArticles]);
 
   return (
     <div className="App">
       <Header />
       <Routes>
-      <Route path="/" element={<Articles articles={articles}/>}/>
+      <Route path="/" element={<Articles articles={articles} loading={loading}/>}/>
       </Routes>
     </div>
   );
