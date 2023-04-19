@@ -97,3 +97,11 @@ header {
 .commentBody {
   font-weight: bolder;
 }
+
+.comment {
+  border: 2px solid #28112B;
+  margin-right: 40px;
+  margin-top: 40px;
+  margin-block-end: 40px;
+  padding: 10px;
+}

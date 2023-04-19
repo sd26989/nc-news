@@ -9,6 +9,7 @@ const Article = () => {
     const [comments, setComments] = useState([]);
     const [artLoading, setArtLoading] = useState(true);
     const [comLoading, setComLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
 
     useEffect(() => {
         fetchArticle(article_id).then((data) => {
@@ -22,15 +23,17 @@ const Article = () => {
         setComments(data);
         setComLoading(false);
         })
+        .catch((err) => {
+            setIsError(true)
+        })
+        .finally(() => {
+            setComLoading(false)
+        })
     }, [article_id, setComLoading]);
 
-    if (artLoading) {
-        return <p>Loading...</p>
-    }
+    if (artLoading) return <p>Loading...</p>
+    if (comLoading) return <p>Loading...</p>
 
-    if (comLoading) {
-        return <p>Loading...</p>
-    }
 
     return (
         <div>
@@ -44,14 +47,14 @@ const Article = () => {
             </section>
             <section>
             <h2>Comments</h2>
-            <ul className={'comments'}>
+            {isError ? <p>There are no comments for this article!</p> : <ul className={'comments'}>
            {comments.map((comment) => {
             return <li className='comment' key={comment.article_id}>
                 <p className={'commentBody'}>"{comment.body}"</p>
                 <p>Comment posted by {comment.author} at {comment.created_at}</p>
                 </li>
            })}
-        </ul>
+        </ul>}
             </section>
         </div>
     );
