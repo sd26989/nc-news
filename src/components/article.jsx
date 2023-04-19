@@ -49,7 +49,7 @@ const Article = () => {
             <h2>Comments</h2>
             {isError ? <p>There are no comments for this article!</p> : <ul className={'comments'}>
            {comments.map((comment) => {
-            return <li className='comment' key={comment.article_id}>
+            return <li className='comment' key={comment.comment_id}>
                 <p className={'commentBody'}>"{comment.body}"</p>
                 <p>Comment posted by {comment.author} at {comment.created_at}</p>
                 </li>
