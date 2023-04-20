@@ -24,3 +24,10 @@ export const fetchComments = (article_id) => {
       return response.data.comments;
     });
 }
+
+export const patchArticleVotes = (article_id, inc_votes) => {
+    return newsAPI.patch(`/articles/${article_id}`, { inc_votes: inc_votes })
+      .then(({data}) => {
+       return data.article.votes
+      });
+  };

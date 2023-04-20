@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
-import { fetchArticle, fetchComments } from '../api';
+import { fetchArticle, fetchComments, patchArticleVotes } from '../api';
 
 const Article = () => {
     const {article_id} = useParams()
@@ -10,10 +10,14 @@ const Article = () => {
     const [artLoading, setArtLoading] = useState(true);
     const [comLoading, setComLoading] = useState(true);
     const [isError, setIsError] = useState(false);
+    const [upDisabled, setUpDisabled] = useState(false);
+    const [downDisabled, setDownDisabled] = useState(false);
+    const [votes, setVotes] = useState(article.votes);
 
     useEffect(() => {
         fetchArticle(article_id).then((data) => {
         setArticle(data);
+        setVotes(data.votes);
         setArtLoading(false);
         })
     }, [article_id, setArtLoading]);
@@ -31,9 +35,30 @@ const Article = () => {
         })
     }, [article_id, setComLoading]);
 
+    const handleUpvoteClick = () => {
+        setVotes(previousVotes => previousVotes + 1);
+        setUpDisabled(true);
+        patchArticleVotes(article_id, 1)
+        .catch(() => {
+          setIsError(true);
+          setVotes(previousVotes => previousVotes - 1);
+          setUpDisabled(false);
+        });
+      };
+
+    const handleDownvoteClick = () => {
+        setVotes(previousVotes => previousVotes - 1);
+        setDownDisabled(true);
+        patchArticleVotes(article_id, -1)
+        .catch(() => {
+          setIsError(true);
+          setVotes(previousVotes => previousVotes + 1);
+          setDownDisabled(false);
+        });
+      };
+
     if (artLoading) return <p>Loading...</p>
     if (comLoading) return <p>Loading...</p>
-
 
     return (
         <div>
@@ -43,7 +68,22 @@ const Article = () => {
                 <img src={article.article_img_url} alt={`${article.topic}`} className={'responsiveImg'}></img>
                 <p>{article.body}</p>
                 <p>Topic: {article.topic}</p>
-                <p><button>+</button> Votes: {article.votes} <button>-</button></p>
+                
+          <button
+            className="upvote-button"
+            disabled={upDisabled}
+            onClick={handleUpvoteClick}
+          >
+            +
+          </button>
+          <p className="article-votes">Votes: {votes}</p>
+          <button
+            className="downvote-button"
+            disabled={downDisabled}
+            onClick={handleDownvoteClick}
+          >
+            -
+          </button>
             </section>
             <section>
             <h2>Comments</h2>
