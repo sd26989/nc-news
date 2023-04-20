@@ -12,11 +12,12 @@ const Article = () => {
     const [isError, setIsError] = useState(false);
     const [upDisabled, setUpDisabled] = useState(false);
     const [downDisabled, setDownDisabled] = useState(false);
-    
+    const [votes, setVotes] = useState(article.votes);
 
     useEffect(() => {
         fetchArticle(article_id).then((data) => {
         setArticle(data);
+        setVotes(data.votes);
         setArtLoading(false);
         })
     }, [article_id, setArtLoading]);
@@ -35,41 +36,29 @@ const Article = () => {
     }, [article_id, setComLoading]);
 
     const handleUpvoteClick = () => {
-        setArticle({
-          ...article,
-          votes: article.votes + 1,
-        });
+        setVotes(previousVotes => previousVotes + 1);
         setUpDisabled(true);
-        patchArticleVotes(article_id)
+        patchArticleVotes(article_id, 1)
         .catch(() => {
           setIsError(true);
-          setArticle({
-            ...article,
-            votes: article.votes - 1,
-          });
+          setVotes(previousVotes => previousVotes - 1);
           setUpDisabled(false);
         });
       };
-      const handleDownvoteClick = () => {
-        setArticle({
-          ...article,
-          votes: article.votes - 1,
-        });
+
+    const handleDownvoteClick = () => {
+        setVotes(previousVotes => previousVotes - 1);
         setDownDisabled(true);
-        patchArticleVotes(article_id)
+        patchArticleVotes(article_id, -1)
         .catch(() => {
           setIsError(true);
-          setArticle({
-            ...article,
-            votes: article.votes + 1,
-          });
+          setVotes(previousVotes => previousVotes + 1);
           setDownDisabled(false);
         });
       };
 
     if (artLoading) return <p>Loading...</p>
     if (comLoading) return <p>Loading...</p>
-
 
     return (
         <div>
@@ -87,7 +76,7 @@ const Article = () => {
           >
             +
           </button>
-          <p className="article-votes">Votes: {article.votes}</p>
+          <p className="article-votes">Votes: {votes}</p>
           <button
             className="downvote-button"
             disabled={downDisabled}

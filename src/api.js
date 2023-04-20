@@ -25,9 +25,9 @@ export const fetchComments = (article_id) => {
     });
 }
 
-export const patchArticleVotes = (article_id) => {
-    return newsAPI.patch(`/articles/${article_id}`, { inc_votes: 1 })
+export const patchArticleVotes = (article_id, inc_votes) => {
+    return newsAPI.patch(`/articles/${article_id}`, { inc_votes: inc_votes })
       .then(({data}) => {
-       return data.article
+       return data.article.votes
       });
   };
