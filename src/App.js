@@ -5,6 +5,7 @@ import {Routes, Route} from 'react-router-dom';
 import './App.css';
 import { useState, useEffect } from "react";
 import { fetchArticles } from './api';
+import { UserProvider } from "./contexts/user";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -20,10 +21,12 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <UserProvider>
       <Routes>
       <Route path="/" element={<Articles articles={articles} loading={loading}/>}/>
       <Route path="/articles/:article_id" element={<Article />}/>
       </Routes>
+      </UserProvider>
     </div>
   );
 }
