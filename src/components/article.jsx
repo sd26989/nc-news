@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { fetchArticle, patchArticleVotes } from '../api';
 import Comments from ".//comments";
+import { BiUpvote, BiDownvote } from 'react-icons/bi';
 
 const Article = () => {
     const {article_id} = useParams()
@@ -56,7 +57,7 @@ const Article = () => {
             disabled={upDisabled}
             onClick={handleUpvoteClick}
           >
-            +
+            <BiUpvote />
           </button>
           <p className="article-votes">Votes: {votes}</p>
           <button
@@ -64,7 +65,7 @@ const Article = () => {
             disabled={downDisabled}
             onClick={handleDownvoteClick}
           >
-            -
+            <BiDownvote />
           </button>
             </section>
             <Comments article_id={article_id}/>

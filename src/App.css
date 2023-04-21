@@ -110,3 +110,11 @@ header {
   width: 94%;
   height: 200px
 }
+
+.home-button {
+  height: 50px;
+}
+
+.topics-button {
+  height: 50px;
+}
