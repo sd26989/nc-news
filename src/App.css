@@ -105,3 +105,8 @@ header {
   margin-block-end: 40px;
   padding: 10px;
 }
+.comment-form-body {
+  border: 2px solid #28112B;
+  width: 94%;
+  height: 200px
+}

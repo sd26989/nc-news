@@ -5,7 +5,7 @@ import {Routes, Route} from 'react-router-dom';
 import './App.css';
 import { useState, useEffect } from "react";
 import { fetchArticles } from './api';
-import { UserProvider } from "./components/user";
+import { UserProvider } from "./contexts/user";
 
 function App() {
   const [articles, setArticles] = useState([]);

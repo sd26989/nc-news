@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useState, useContext } from "react";
 import { fetchComments, postComment } from '../api';
-import { UserContext } from "../components/user";
+import { UserContext } from "../contexts/user";
 
 const Comments = ({ article_id }) => {
 
     const [comments, setComments] = useState([]);
     const [comLoading, setComLoading] = useState(true);
     const [isComError, setIsComError] = useState(false);
+    const [isPostError, setIsPostError] = useState(false);
     const [body, setBody] = useState("");
     const [sending, setSending] = useState(false);
     const { user } = useContext(UserContext);
@@ -18,7 +19,6 @@ const Comments = ({ article_id }) => {
         setComLoading(false);
         })
         .catch((err) => {
-            console.log(err.response)
             setIsComError(true)
         })
         .finally(() => {
@@ -38,6 +38,7 @@ const Comments = ({ article_id }) => {
       })
       .catch((err) => {
         setSending(false);
+        setIsPostError(true);
       });
     }
 
@@ -49,21 +50,12 @@ const Comments = ({ article_id }) => {
 
     return (
         <section>
-            <h2>Comments</h2>
-            {isComError ? <p>There are no comments for this article!</p> : <ul className={'comments'}>
-           {comments.map((comment) => {
-            return <li className='comment' key={comment.comment_id}>
-                <p className={'commentBody'}>"{comment.body}"</p>
-                <p>Comment posted by {comment.author} at {comment.created_at}</p>
-                </li>
-           })}
-        </ul>}
-        <section>
+            <section>
             <h3>Add Comment</h3>
       <form className="comment-form" onSubmit={handleSubmit}>
         <textarea
           className="comment-form-body"
-          value={body}
+          value={body.trimStart()}
           onChange={handleChange}
           placeholder="Write a comment here..."
           required={true}
@@ -76,7 +68,17 @@ const Comments = ({ article_id }) => {
           disabled={sending}
         />
       </form>
+      {isPostError ? <p>Something went wrong! Comment not posted.</p> : null}
     </section>
+            <h2>Comments</h2>
+            {isComError ? <p>There are no comments for this article!</p> : <ul className={'comments'}>
+           {comments.map((comment) => {
+            return <li className='comment' key={comment.comment_id}>
+                <p className={'commentBody'}>"{comment.body}"</p>
+                <p>Comment posted by {comment.author} at {comment.created_at}</p>
+                </li>
+           })}
+        </ul>}
         </section>
     );
 };
