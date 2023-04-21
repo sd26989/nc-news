@@ -11,6 +11,13 @@ export const fetchArticles = () => {
     });
 }
 
+export const fetchUsers = () => {
+    return newsAPI.get(`/users`)
+    .then((response) => {
+      return response.data.users;
+    });
+}
+
 export const fetchArticle = (article_id) => {
     return newsAPI.get(`/articles/${article_id}`)
     .then((response) => {
@@ -31,3 +38,9 @@ export const patchArticleVotes = (article_id, inc_votes) => {
        return data.article.votes
       });
   };
+
+  export const postComment = (article_id, username, body) => {
+    return newsAPI.post(`/articles/${article_id}/comments`, {username, body}).then(({data}) => {
+        return data;
+    })
+    }
