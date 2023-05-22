@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { GoComment } from 'react-icons/go';
+import { BiUpvote } from 'react-icons/bi';
 
 const Articles = ({ articles, loading }) => {
   const [sortBy, setSortBy] = useState("date");
@@ -37,19 +39,16 @@ const Articles = ({ articles, loading }) => {
 
   return (
     <main>
-      <h2>All Articles</h2>
-
-      <div>
-        <label htmlFor="sort">Sort By:</label>
+      <div className ="sort-container">
+        {/* <label htmlFor="sort">Sort By:</label> */}
         <select id="sort" value={sortBy} onChange={handleSortChange}>
           <option value="date">Date</option>
           <option value="votes">Votes</option>
           <option value="comments">Comments</option>
         </select>
       </div>
-
-      <div>
-        <label htmlFor="order">Sort Order:</label>
+      <div className="order-container">
+        {/* <label htmlFor="order">Sort Order:</label> */}
         <select id="order" value={sortOrder} onChange={handleOrderChange}>
           <option value="desc">Descending</option>
           <option value="asc">Ascending</option>
@@ -60,7 +59,7 @@ const Articles = ({ articles, loading }) => {
         {sortedArticles.map((article) => {
           return (
             <li className="articles" key={article.article_id}>
-              <Link to={`/articles/${article.article_id}`}>
+              <Link to={`/articles/${article.article_id}`} className="articleLink">
                 <h2>{article.title}</h2>
               </Link>
               <img
@@ -68,10 +67,8 @@ const Articles = ({ articles, loading }) => {
                 alt={`${article.topic}`}
                 className={"responsiveImg"}
               ></img>
-              <p>Written by {article.author}</p>
-              <p>Topic: {article.topic}</p>
-              <p>Votes: {article.votes}</p>
-              <p>Comments: {article.comment_count}</p>
+              <p className="author">By {article.author}</p>
+              <p><BiUpvote/> {article.votes} <GoComment/> {article.comment_count}</p>
             </li>
           );
         })}

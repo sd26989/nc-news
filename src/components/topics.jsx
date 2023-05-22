@@ -26,9 +26,11 @@ const Topics = () => {
 
             <ul className='allTopics'>
            {topics.map((topic) => {
-            return <li className='topics' key={topic.slug}>
-                <Link to={`/?topic=${topic.slug}`}><h2>{topic.slug}</h2></Link>
+            return <div className="topics">
+            <li className='card' key={topic.slug}>
+                <Link to={`/?topic=${topic.slug}`}><h2>#{topic.slug}</h2></Link>
                 </li>
+                </div>
            })}
         </ul>
 
